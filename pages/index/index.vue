@@ -1,52 +1,43 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+	<view class="index-whole">
+		<component class="index-content" :is="router">{{ router }}</component>
+		<tab-bar class="index-bar" :hook="hook"></tab-bar>
 	</view>
 </template>
 
 <script>
+	import TabBar from '../../components/TabBar'
 	export default {
+		components: {
+			TabBar
+		},
 		data() {
 			return {
-				title: 'Hello'
+				hook: {
+					get: () => this.router,
+					set: (router) => {
+						this.router = router
+					},
+				},
+				router: 'page-home'
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+			
 		}
 	}
 </script>
 
-<style>
-	.content {
+<style lang="less" scoped>
+	.index-whole {
+		height: 100%;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		flex-flow: column nowrap;
+		.index-content {
+			margin-bottom: var(--tabbar-height);
+		}
 	}
 </style>
