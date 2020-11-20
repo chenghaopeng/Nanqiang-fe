@@ -6,10 +6,18 @@
 </template>
 
 <script>
+	import Home from '../Home'
+	import Trend from '../Trend'
+	import Love from '../Love'
+	import Gallery from '../Gallery'
 	import TabBar from '../../components/TabBar'
 	export default {
 		components: {
-			TabBar
+			TabBar,
+			PageHome: Home,
+			PageTrend: Trend,
+			PageLove: Love,
+			PageGallery: Gallery
 		},
 		data() {
 			return {
