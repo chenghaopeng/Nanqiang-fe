@@ -61,14 +61,15 @@
 	.tabbar-whole {
 		position: fixed;
 		width: 100%;
+		left: 0;
 		bottom: 0;
 		height: var(--tabbar-height);
 		padding: 0upx 64upx;
 		border-top-left-radius: calc(var(--tabbar-height) / 2);
 		border-top-right-radius: calc(var(--tabbar-height) / 4);
-		background-color: fade(white, 88);
+		background-color: fade(white, 64);
 		box-shadow: 0upx 0upx calc(var(--tabbar-height) / 4) 0upx fade(black, 16%);
-		backdrop-filter: blur(128upx) saturate(150%) brightness(150%);
+		backdrop-filter: blur(64upx) saturate(150%) brightness(150%);
 		.tabbar-tabs {
 			height: 100%;
 			width: 100%;

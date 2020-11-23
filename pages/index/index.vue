@@ -41,9 +41,11 @@
 
 <style lang="less" scoped>
 	.index-whole {
+		padding: 32upx;
 		height: 100%;
 		display: flex;
 		flex-flow: column nowrap;
+		background-color: #eaebec;
 		.index-content {
 			margin-bottom: var(--tabbar-height);
 		}
