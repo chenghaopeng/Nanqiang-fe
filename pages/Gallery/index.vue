@@ -1,7 +1,13 @@
 <template>
 	<view class="gallery-whole">
-		<xyz-masonry :masonryList="masonryList" :isSize="false" :borderRadius="16"></xyz-masonry>
-		<button class="gallery-more">查看更多</button>
+		<xyz-masonry
+			:masonryList="masonryList"
+			:isSize="false"
+			:borderRadius="16"
+			:imgWidth="320"
+		></xyz-masonry>
+		<button v-if="hasMore" class="gallery-more">查看更多</button>
+		<text v-else>到底啦！</text>
 	</view>
 </template>
 
@@ -17,14 +23,16 @@
 				io: null,
 				time: 0,
 				batchSize: 10,
-				masonryList: []
+				masonryList: [],
+				hasMore: true
 			}
 		},
 		methods: {
 			getMore () {
 				request(`/gallery/${this.time}/${this.batchSize}`).then(res => {
 					this.masonryList = res.data
-					this.time = Math.max(...this.masonryList.map(item => item.time))
+					this.time = Math.max(this.time, ...this.masonryList.map(item => item.time))
+					this.hasMore = !!this.masonryList.length
 				})
 			}
 		},

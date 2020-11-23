@@ -115,8 +115,9 @@ export default {
 			width: 350px;
 			text-align: center;
 			image {
-				margin-bottom: 8px;
+				margin-bottom: 16upx;
 				will-change: transform;
+				box-shadow: 0upx 0upx 32upx 0upx fade(black, 12);
 			}
 		}
 	

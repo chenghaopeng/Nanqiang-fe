@@ -81,6 +81,7 @@
 			.tabbar-tab {
 				color: #CCCCCC;
 				transition: 0.2s ease-in-out;
+				filter: drop-shadow(0upx 0upx 8upx white);
 				&.checked {
 					color: var(--primary-color);
 					animation-name: twinkle;
