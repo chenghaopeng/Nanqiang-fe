@@ -104,6 +104,14 @@ export default {
 	},
 	onLoad() {
 		this.handleData(this.masonryList)
+	},
+	mounted () {
+		this.$emit('mounted', () => {
+			this.imgLeft = []
+			this.imgRight = []
+			this.leftHeight = 0
+			this.rightHeight = 0
+		})
 	}
 };
 </script>
