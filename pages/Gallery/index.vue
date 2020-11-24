@@ -8,8 +8,8 @@
 			:imgWidth="320"
 			@mounted="handleMounted"
 		></xyz-masonry>
-		<button v-if="hasMore" v-show="!loading" class="gallery-more">查看更多</button>
-		<text v-else>到底啦！</text>
+		<button v-if="hasMore" v-show="!loading" class="gallery-more" @click="getMore">查看更多</button>
+		<text v-else class="gallery-end">到底啦！</text>
 	</view>
 </template>
 
@@ -81,8 +81,10 @@
 	.gallery-whole {
 		display: grid;
 		grid-template-columns: 100%;
-		justify-content: center;
 		align-content: start;
 		gap: 32upx;
+		.gallery-end {
+			text-align: center;
+		}
 	}
 </style>
