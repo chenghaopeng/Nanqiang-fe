@@ -4,7 +4,7 @@
 			<text class="page-home-block-title">画廊</text>
 			<option-card :options="gallery.options" @change="handleGalleryChange($event)"></option-card>
 			<view class="page-home-block-gallery">
-				<image class="page-home-block-gallery-image" v-for="image in gallery.images" :key="image.src" :src="image.src" mode="aspectFill"></image>
+				<image class="page-home-block-gallery-image" v-for="image in gallery.images" :key="image.src" :src="image.src" mode="aspectFill" @click="handleImageClick(image.id)"></image>
 			</view>
 		</view>
 	</view>
@@ -31,6 +31,9 @@
 				request($index === 0 ? `/gallery/${Number.MAX_SAFE_INTEGER}/10` : `/gallery/type/0/10/${this.gallery.options[$index]}`).then(res => {
 					this.gallery.images = Array.from(new Set(res.data)).map(item => { return { ...item, src: imageProxy(item.src) } })
 				})
+			},
+			handleImageClick (id) {
+				this.$showContent(id)
 			}
 		},
 		mounted() {
