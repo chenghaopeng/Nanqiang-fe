@@ -42,12 +42,11 @@
 		overflow-y: scroll;
 		filter: drop-shadow(0upx 0upx 8upx fade(black, 16));
 		.option-card-option {
+			flex: none;
 			margin-right: 16upx;
 			padding: 8upx 16upx;
 			min-width: 128upx;
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
+			text-align: center;
 			border: 2upx solid var(--primary-color);
 			border-radius: 8upx;
 			background-color: fade(#AEB5FF, 60);

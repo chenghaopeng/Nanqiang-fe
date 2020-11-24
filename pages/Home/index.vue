@@ -1,7 +1,7 @@
 <template>
 	<view class="page-home-whole">
 		<view class="page-home-block">
-			<text class="page-home-block-title">图鉴</text>
+			<text class="page-home-block-title">画廊</text>
 			<option-card :options="gallery.options" @change="handleGalleryChange($event)"></option-card>
 			<view class="page-home-block-gallery">
 				<image class="page-home-block-gallery-image" v-for="image in gallery.images" :key="image.id" :src="image.src" mode="aspectFill"></image>
@@ -20,7 +20,7 @@
 		data () {
 			return {
 				gallery: {
-					options: ['全部', '猫', '狗', '天空', '日出', '仓鼠', '碗'],
+					options: ['全部', '猫', '狗', '天空', '日出', '碗', '帅哥', '美女', '演出', '美食', '植物'],
 					index: 0,
 					images: []
 				}
