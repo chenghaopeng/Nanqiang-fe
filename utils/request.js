@@ -18,4 +18,13 @@ const request = (api = '/', data = {}, method = 'GET') => {
 	})
 }
 
+export const imageProxy = src => {
+	//#ifdef H5
+		return server + '/gallery/get?src=' + src
+	//#endif
+	//#ifndef H5
+		return src
+	//#endif
+}
+
 export default request
