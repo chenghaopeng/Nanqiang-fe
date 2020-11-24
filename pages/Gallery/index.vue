@@ -21,7 +21,7 @@
 		data () {
 			return {
 				io: null,
-				time: 0,
+				time: Number.MAX_SAFE_INTEGER,
 				batchSize: 10,
 				masonryList: [],
 				hasMore: true
@@ -31,7 +31,7 @@
 			getMore () {
 				request(`/gallery/${this.time}/${this.batchSize}`).then(res => {
 					this.masonryList = res.data
-					this.time = Math.max(this.time, ...this.masonryList.map(item => item.time))
+					this.time = Math.min(this.time, ...this.masonryList.map(item => item.time))
 					this.hasMore = !!this.masonryList.length
 				})
 			}
