@@ -27,6 +27,7 @@
 		},
 		methods: {
 			handleClick ($index) {
+				if (this.index === $index) return
 				this.index = $index
 				this.$emit('change', $index)
 			}
@@ -45,7 +46,7 @@
 			flex: none;
 			margin-right: 16upx;
 			padding: 8upx 16upx;
-			min-width: 128upx;
+			min-width: 144upx;
 			text-align: center;
 			border: 2upx solid var(--primary-color);
 			border-radius: 8upx;
@@ -56,6 +57,7 @@
 			}
 			&.option-card-checked {
 				background-color: var(--primary-color);
+				font-weight: bold;
 				color: white;
 			}
 		}
