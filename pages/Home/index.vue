@@ -4,13 +4,25 @@
 			<text class="page-home-block-title">画廊</text>
 			<option-card :options="gallery.options" @change="handleGalleryChange($event)"></option-card>
 			<view class="page-home-block-content page-home-block-gallery">
-				<image class="page-home-block-gallery-image" v-for="image in gallery.images" :key="image.src" :src="image.src" mode="aspectFill" @click="handleImageClick(image.id)"></image>
+				<image
+					class="page-home-block-gallery-image"
+					v-for="image in gallery.images"
+					:key="image.src"
+					:src="image.src"
+					mode="aspectFill"
+					@click="handleImageClick(image.id)"
+				></image>
 			</view>
 		</view>
 		<view class="page-home-block">
 			<text class="page-home-block-title">趋势</text>
 			<option-card :options="trend.options" @change="handleTrendChange($event)"></option-card>
-			<canvas canvas-id="canvasWord" id="canvasWord" class="page-home-block-content page-home-block-charts"></canvas>
+			<canvas
+				canvas-id="canvasWord"
+				id="canvasWord"
+				class="page-home-block-content page-home-block-charts"
+				@touchstart="handleTrendTouchWord"
+			></canvas>
 		</view>
 	</view>
 </template>
@@ -45,7 +57,7 @@
 				})
 			},
 			handleTrendChange ($index) {
-				request(`/trend/get/${this.trend.apis[$index]}`).then(res => {
+				request(`/trend/${this.trend.apis[$index]}`).then(res => {
 					this.trend.series = Object.keys(res.data).map(item => {
 						return {
 							name: item,
@@ -72,6 +84,12 @@
 			},
 			handleImageClick (id) {
 				this.$showContent(id)
+			},
+			handleTrendTouchWord (e) {
+				const index = this.trend.ref.getCurrentDataIndex(e)
+				if (index < 0) return
+				const { name } = this.trend.series[index]
+				console.log(name)
 			}
 		},
 		mounted() {
