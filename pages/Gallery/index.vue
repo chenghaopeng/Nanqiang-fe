@@ -8,8 +8,8 @@
 			:imgWidth="320"
 			@mounted="handleMounted"
 		></xyz-masonry>
-		<button v-if="hasMore" v-show="!loading" class="gallery-more" @click="getMore">查看更多</button>
-		<text v-else class="gallery-end">到底啦！</text>
+		<button v-show="hasMore && !loading" class="gallery-more" @click="getMore">查看更多</button>
+		<text v-show="!hasMore" class="gallery-end">到底啦！</text>
 	</view>
 </template>
 
@@ -54,6 +54,7 @@
 					this.masonryList = []
 					this.time = Number.MAX_SAFE_INTEGER
 					this.begin = 0
+					this.hasMore = true
 				}
 			},
 			handleChange ($index) {
