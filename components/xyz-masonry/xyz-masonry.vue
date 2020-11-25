@@ -8,6 +8,7 @@
 					:src="item.src"
 					:mode="mode"
 					:style="{ width: imgWidth + 'rpx' ,borderRadius:borderRadius+'rpx'}"
+					@click="handleClick(item.id)"
 					lazy-load
 				></image>
 			</view>
@@ -18,6 +19,7 @@
 					:src="item.src"
 					:mode="mode"
 					:style="{ width: imgWidth + 'rpx',borderRadius:borderRadius+'rpx' }"
+					@click="handleClick(item.id)"
 					lazy-load
 				></image>
 			</view>
@@ -63,6 +65,9 @@ export default {
 		}
 	},
 	methods: {
+		handleClick (id) {
+			this.$showContent(id)
+		},
 		handleData(arr) {
 			arr.forEach(async (v, k) => {
 				let imgHeight;
