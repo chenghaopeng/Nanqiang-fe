@@ -2,6 +2,7 @@
 	<view class="index-whole">
 		<component class="index-content" :is="router">{{ router }}</component>
 		<tab-bar class="index-bar" :hook="hook"></tab-bar>
+		<page-word></page-word>
 		<page-content></page-content>
 	</view>
 </template>
@@ -12,6 +13,7 @@
 	import Love from '../Love'
 	import Gallery from '../Gallery'
 	import Content from '../Content'
+	import Word from '../Word'
 	import TabBar from '../../components/TabBar'
 	export default {
 		components: {
@@ -20,7 +22,8 @@
 			PageTrend: Trend,
 			PageLove: Love,
 			PageGallery: Gallery,
-			PageContent: Content
+			PageContent: Content,
+			PageWord: Word
 		},
 		data() {
 			return {

@@ -89,7 +89,7 @@
 				const index = this.trend.ref.getCurrentDataIndex(e)
 				if (index < 0) return
 				const { name } = this.trend.series[index]
-				console.log(name)
+				this.$showWord(name)
 			}
 		},
 		mounted() {
