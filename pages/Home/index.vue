@@ -39,7 +39,7 @@
 		},
 		methods: {
 			handleGalleryChange ($index) {
-				this.gallery.images = []
+				this.gallery.images = ['']
 				request($index === 0 ? `/gallery/${Number.MAX_SAFE_INTEGER}/10` : `/gallery/type/0/10/${this.gallery.options[$index]}`).then(res => {
 					this.gallery.images = Array.from(new Set(res.data)).map(item => { return { ...item, src: imageProxy(item.src) } })
 				})
