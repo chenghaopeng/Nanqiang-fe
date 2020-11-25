@@ -27,4 +27,8 @@ export const imageProxy = src => {
 	//#endif
 }
 
+export const getImageInfo = src => {
+	return uni.getImageInfo({ src })
+}
+
 export default request
