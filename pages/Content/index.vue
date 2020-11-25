@@ -13,6 +13,7 @@
 						:src="imageProxy(src)"
 						mode="aspectFit"
 						class="content-container-whole-bubble-image"
+						@click="handleImageClick(imageProxy(src))"
 					></auto-size-image>
 					<text class="content-container-whole-bubble-time">{{ new DateFormat(content.time * 1000).toString() }}</text>
 				</view>
@@ -28,6 +29,7 @@
 						:src="imageProxy(src)"
 						mode="aspectFit"
 						class="content-container-whole-bubble-image"
+						@click="handleImageClick(imageProxy(src))"
 					></auto-size-image>
 					<text class="content-container-whole-bubble-time">{{ new DateFormat(comment.time * 1000).toString() }}</text>
 				</view>
@@ -51,7 +53,8 @@
 				hiding: false,
 				id: null,
 				loading: false,
-				content: null
+				content: null,
+				images: []
 			}
 		},
 		methods: {
@@ -64,7 +67,17 @@
 				this.show = true
 				request('/content/' + id).then(res => {
 					this.loading = false
-					if (res.code === 0) this.content = res.data
+					if (res.code === 0) {
+						this.content = res.data
+						this.images = []
+						if (this.content.piclist) this.images = this.images.concat(this.content.piclist)
+						if (this.content.commentlist) this.content.commentlist.map(comment => {
+							if (comment.comment_piclist) {
+								this.images = this.images.concat(comment.comment_piclist)
+							}
+						})
+						this.images = this.images.map(src => imageProxy(src))
+					}
 					else this.content = null
 				})
 			},
@@ -74,6 +87,12 @@
 					this.show = false
 					this.hiding = false
 				}, 200)
+			},
+			handleImageClick (src) {
+				uni.previewImage({
+					current: this.images.indexOf(src),
+					urls: this.images
+				})
 			}
 		},
 		mounted () {

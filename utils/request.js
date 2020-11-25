@@ -1,4 +1,4 @@
-const server = 'http://localhost:5000'
+const server = 'http://192.168.2.112:5000'
 
 const request = (api = '/', data = {}, method = 'GET') => {
 	let url = server + api

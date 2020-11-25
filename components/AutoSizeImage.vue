@@ -1,5 +1,5 @@
 <template>
-	<image :src="src" :style="{ width: width + 'rpx', height: height + 'rpx' }">
+	<image :src="src" :style="{ width: width + 'rpx', height: height + 'rpx' }" @click="$emit('click')">
 </template>
 
 <script>
