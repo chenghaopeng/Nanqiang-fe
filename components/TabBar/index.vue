@@ -3,6 +3,7 @@
 		<view class="tabbar-tabs">
 			<Am-FontAwesome
 				v-for="tab in tabs"
+				:key="tab.router"
 				:size="tab.size"
 				:class="['tabbar-tab', hook.get().startsWith(tab.router) ? 'checked' : '', 'fas', 'fa-' + tab.icon]"
 				@click="handleTabChange(tab.router)"

@@ -21,4 +21,7 @@
 	* {
 		box-sizing: border-box;
 	}
+	body {
+		background-color: #eaebec;
+	}
 </style>

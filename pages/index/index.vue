@@ -52,10 +52,8 @@
 		padding: 32upx;
 		display: flex;
 		flex-flow: column nowrap;
-		background-color: #eaebec;
 		.index-content {
 			margin-bottom: var(--tabbar-height);
-			min-height: 100vh;
 		}
 	}
 </style>
