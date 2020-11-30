@@ -21,7 +21,7 @@
 				canvas-id="canvasWord"
 				id="canvasWord"
 				class="page-home-block-content page-home-block-charts"
-				@touchstart="handleTrendTouchWord"
+				@click="handleTrendClickWord"
 			></canvas>
 		</view>
 	</view>
@@ -85,7 +85,7 @@
 			handleImageClick (id) {
 				this.$showContent(id)
 			},
-			handleTrendTouchWord (e) {
+			handleTrendClickWord (e) {
 				const index = this.trend.ref.getCurrentDataIndex(e)
 				if (index < 0) return
 				const { name } = this.trend.series[index]
