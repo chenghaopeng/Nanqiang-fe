@@ -34,10 +34,12 @@
 			handleMounted (hook) {
 				this.hook = hook
 			},
-			load (word) {
+			load (begin, end, word) {
+				this.begin = begin
+				this.end = end
 				this.word = word
 				this.hook()
-				request('/trend/get/' + word).then(res => {
+				request(`/trend/${begin}/${end}/${word}`).then(res => {
 					this.data = res.data
 					this.width = uni.upx2px(Object.keys(this.data).length * 160)
 					this.ref = new uCharts({
@@ -83,8 +85,8 @@
 			}
 		},
 		mounted () {
-			Vue.prototype.$showWord = word => {
-				this.load(word)
+			Vue.prototype.$showWord = (begin, end, word) => {
+				this.load(begin, end, word)
 			}
 		}
 	}

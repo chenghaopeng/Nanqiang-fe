@@ -44,8 +44,15 @@
 				trend: {
 					options: ['今日', '本周', '本月', '今年'],
 					apis: ['day', 'week', 'month', 'year'],
+					offset: [
+						3600 * 24,
+						3600 * 24 * 7,
+						3600 * 24 * 30,
+						3600 * 24 * 365
+					],
 					series: [],
-					ref: null
+					ref: null,
+					index: 0
 				}
 			}
 		},
@@ -57,6 +64,7 @@
 				})
 			},
 			handleTrendChange ($index) {
+				this.trend.index = $index
 				request(`/trend/${this.trend.apis[$index]}`).then(res => {
 					this.trend.series = Object.keys(res.data).map(item => {
 						return {
@@ -89,7 +97,8 @@
 				const index = this.trend.ref.getCurrentDataIndex(e)
 				if (index < 0) return
 				const { name } = this.trend.series[index]
-				this.$showWord(name)
+				const time = Math.round(new Date().getTime() / 1000)
+				this.$showWord(time - this.trend.offset[this.trend.index], time, name)
 			}
 		},
 		mounted() {
