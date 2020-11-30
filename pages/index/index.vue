@@ -14,6 +14,7 @@
 	import Gallery from '../Gallery'
 	import Content from '../Content'
 	import Word from '../Word'
+	import Search from '../Search'
 	import TabBar from '../../components/TabBar'
 	export default {
 		components: {
@@ -23,7 +24,8 @@
 			PageLove: Love,
 			PageGallery: Gallery,
 			PageContent: Content,
-			PageWord: Word
+			PageWord: Word,
+			PageSearch: Search
 		},
 		data() {
 			return {
