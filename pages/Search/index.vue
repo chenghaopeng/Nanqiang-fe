@@ -18,16 +18,19 @@
 				<image v-if="result.type === 1" :src="imageProxy(result.src)" mode="aspectFill" lazy-load>
 			</view>
 		</view>
+		<p-loading v-show="loading"></p-loading>
 		<button v-show="results.length && !loading" class="search-more" @click="update">查看更多</button>
 	</view>
 </template>
 
 <script>
+	import PLoading from '../../components/PLoading.vue'
 	import OptionCard from '../../components/OptionCard/OptionCard.vue'
 	import request, { imageProxy } from '../../utils/request.js'
 	export default {
 		components: {
-			OptionCard
+			OptionCard,
+			PLoading
 		},
 		data () {
 			return {
@@ -64,9 +67,9 @@
 			},
 			update () {
 				if (this.loading) return
-				this.loading = true
 				const words = this.words.toLowerCase().split(' ').map(v => v.trim()).filter(v => !!v).join(',')
 				if (!words) return
+				this.loading = true
 				request(`/search/${this.beginTime}/${this.endTime}/${this.count}/${words}`).then(res => {
 					const times = Object.keys(res.data).sort((a, b) => (b - a))
 					this.results = this.results.concat(times.map((time, index) => { return { type: 0, key: `${time}${index}`,  ...res.data[time] } }))
