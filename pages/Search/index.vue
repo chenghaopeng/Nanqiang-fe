@@ -24,13 +24,11 @@
 </template>
 
 <script>
-	import PLoading from '../../components/PLoading.vue'
-	import OptionCard from '../../components/OptionCard/OptionCard.vue'
+	import OptionCard from '../../components/OptionCard.vue'
 	import request, { imageProxy } from '../../utils/request.js'
 	export default {
 		components: {
-			OptionCard,
-			PLoading
+			OptionCard
 		},
 		data () {
 			return {
@@ -69,7 +67,7 @@
 				if (this.loading) return
 				const words = this.words.toLowerCase().split(' ').map(v => v.trim()).filter(v => !!v).join(',')
 				if (!words) return
-				if (this.endTime > 0) {
+				if (this.endTime > 0 && this.type === 0) {
 					this.loading++
 					request(`/search/${this.beginTime}/${this.endTime}/${this.count}/${words}`).then(res => {
 						const times = Object.keys(res.data).sort((a, b) => (b - a))
@@ -80,7 +78,7 @@
 						this.loading--
 					})
 				}
-				if (this.current >= 0) {
+				if (this.current >= 0 && this.type === 1) {
 					this.loading++
 					request(`/gallery/types/${this.current}/${this.current + this.count}/${words}`).then(res => {
 						this.results = this.results.concat(res.data.map((item, index) => { return { type: 1, key: `${item.id}${index}${item.src}`, ...item } }))

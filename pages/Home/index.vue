@@ -22,7 +22,7 @@
 </template>
 
 <script>
-	import OptionCard from '../../components/OptionCard/OptionCard.vue'
+	import OptionCard from '../../components/OptionCard.vue'
 	import HotWordCloud from '../../components/HotWordCloud.vue'
 	import request, { imageProxy } from '../../utils/request.js'
 	export default {

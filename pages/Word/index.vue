@@ -1,6 +1,6 @@
 <template>
 	<popup-view @mounted="handleMounted">
-		<view class="word-whole">
+		<view class="word-whole" v-if="!loading">
 			<view class="word-title">{{ word }} 的情感趋势</view>
 			<scroll-view scroll-x="true">
 				<canvas canvas-id="canvasLine" id="canvasLine" class="word-charts" :style="{ width: width + 'px' } "></canvas>
@@ -9,6 +9,7 @@
 				{{ message.content ? message.content : new DateFormat(message.time * 1000).toString()}}
 			</view>
 		</view>
+		<p-loading v-if="loading"></p-loading>
 	</popup-view>
 </template>
 
@@ -28,7 +29,8 @@
 				word: null,
 				data: [],
 				ref: null,
-				width: null
+				width: null,
+				loading: false
 			}
 		},
 		methods: {
@@ -36,12 +38,14 @@
 				this.hook = hook
 			},
 			load (begin, end, word) {
+				this.loading = true
 				this.data = []
 				this.begin = begin
 				this.end = end
 				this.word = word
 				this.hook()
 				request(`/trend/${begin}/${end}/${word}`).then(res => {
+					this.loading = false
 					this.data = res.data
 					this.width = uni.upx2px(Object.keys(this.data).length * 160)
 					this.ref = new uCharts({

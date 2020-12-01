@@ -15,7 +15,7 @@
 	import Content from '../Content'
 	import Word from '../Word'
 	import Search from '../Search'
-	import TabBar from '../../components/TabBar'
+	import TabBar from '../../components/TabBar.vue'
 	export default {
 		components: {
 			TabBar,

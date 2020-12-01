@@ -15,7 +15,7 @@
 
 <script>
 	import XyzMasonry from '../../components/xyz-masonry/xyz-masonry.vue'
-	import OptionCard from '../../components/OptionCard/OptionCard.vue'
+	import OptionCard from '../../components/OptionCard.vue'
 	import request, { imageProxy } from '../../utils/request.js'
 	export default {
 		components: {

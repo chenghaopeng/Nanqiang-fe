@@ -60,19 +60,19 @@
 			25% { transform: scale(1.1); opacity: 0.5; }
 			100% { transform: scale(0.75); opacity: 0; }
 		}
-		.popup-container-back {
-			position: absolute;
-			right: 32upx;
-			top: 32upx;
-			height: 64upx;
-			width: 64upx;
-			color: var(--primary-color);
-			filter: drop-shadow(0upx 2upx 4upx fade(black, 32));
-		}
 		.popup-container {
 			width: 100%;
 			height: 100%;
 			overflow-y: scroll;
+			.popup-container-back {
+				position: absolute;
+				right: 32upx;
+				top: 32upx;
+				height: 64upx;
+				width: 64upx;
+				color: var(--primary-color);
+				filter: drop-shadow(0upx 2upx 4upx fade(black, 32));
+			}
 		}
 	}
 </style>

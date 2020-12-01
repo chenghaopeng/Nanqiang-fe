@@ -6,12 +6,13 @@
 			<picker class="hot-word-cloud-picker" mode="date" :value="endDate" @change="handleEndChange">止于 {{endDate}}</picker>
 		</view>
 		<canvas
+			v-if="!loading"
 			canvas-id="canvasWord"
 			id="canvasWord"
 			:class="['hot-word-cloud-charts', detailed ? 'hot-word-cloud-charts-detailed' : '']"
 			@click="handleTrendClickWord"
 		></canvas>
-		<view v-if="detailed" class="hot-word-cloud-details">
+		<view v-if="detailed && !loading" class="hot-word-cloud-details">
 			<view class="hot-word-cloud-detail">
 				<text>热词</text>
 				<text>热度</text>
@@ -21,12 +22,13 @@
 				<text>{{ item.score }}</text>
 			</view>
 		</view>
+		<p-loading v-if="loading"></p-loading>
 	</view>
 </template>
 
 <script>
 	import uCharts from '../js_sdk/u-charts/u-charts/u-charts.js'
-	import OptionCard from './OptionCard/OptionCard.vue'
+	import OptionCard from './OptionCard.vue'
 	import request from '../utils/request.js'
 	import DateFormat from '../js_sdk/xfl-DateFormat/DateFormat.js'
 	export default {
@@ -53,7 +55,8 @@
 				index: 0,
 				begin: null,
 				end: null,
-				custom: false
+				custom: false,
+				loading: false
 			}
 		},
 		computed: {
@@ -89,9 +92,11 @@
 		},
 		methods: {
 			update (begin, end) {
+				this.loading = true
 				this.begin = begin
 				this.end = end
 				request(`/trend/${this.begin}/${this.end}`).then(res => {
+					this.loading = false
 					this.series = Object.keys(res.data).map(item => {
 						return {
 							name: item,
