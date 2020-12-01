@@ -1,4 +1,4 @@
-const server = 'http://192.168.2.112:5000'
+const server = 'http://ali.chper.cn:85'
 
 const request = (api = '/', data = {}, method = 'GET') => {
 	let url = server + api
