@@ -1,6 +1,7 @@
 <template>
 	<popup-view @mounted="handleMounted">
 		<view class="word-whole">
+			<view class="word-title">{{ word }} 的情感趋势</view>
 			<scroll-view scroll-x="true">
 				<canvas canvas-id="canvasLine" id="canvasLine" class="word-charts" :style="{ width: width + 'px' } "></canvas>
 			</scroll-view>
@@ -35,6 +36,7 @@
 				this.hook = hook
 			},
 			load (begin, end, word) {
+				this.data = []
 				this.begin = begin
 				this.end = end
 				this.word = word
@@ -97,6 +99,9 @@
 		display: grid;
 		grid-template-columns: 100%;
 		gap: 16upx;
+		.word-title {
+			font-size: larger;
+		}
 		.word-charts {
 			height: 500upx;
 			margin-bottom: 32upx;
