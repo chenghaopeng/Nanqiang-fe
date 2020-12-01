@@ -16,7 +16,7 @@
 				<text>热词</text>
 				<text>热度</text>
 			</view>
-			<view v-for="item in sortedSeries" :key="item.name" class="hot-word-cloud-detail" @click="show(item.name)">
+			<view v-for="item in series" :key="item.name" class="hot-word-cloud-detail" @click="show(item.name)">
 				<text>{{ item.name }}</text>
 				<text>{{ item.score }}</text>
 			</view>
@@ -82,9 +82,6 @@
 			},
 			endDate () {
 				return new DateFormat(this.end * 1000).toString('yyyy-mm-dd')
-			},
-			sortedSeries () {
-				return this.series.sort((a, b) => (b.score - a.score))
 			}
 		},
 		mounted () {
@@ -98,8 +95,13 @@
 					this.series = Object.keys(res.data).map(item => {
 						return {
 							name: item,
-							score: res.data[item],
-							textSize: this.detailed ? (25 + 11 * res.data[item]) : (16 + 9 * res.data[item])
+							score: res.data[item]
+						}
+					}).sort((a, b) => (b.score - a.score)).map((item, index, series) => {
+						const rate = 1 - index / (series.length - 1)
+						return {
+							...item,
+							textSize: this.detailed ? (11 + 25 * rate) : (9 + 16 * rate)
 						}
 					})
 					this.ref = new uCharts({
