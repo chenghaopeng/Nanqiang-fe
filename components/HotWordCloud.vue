@@ -11,6 +11,16 @@
 			:class="['hot-word-cloud-charts', detailed ? 'hot-word-cloud-charts-detailed' : '']"
 			@click="handleTrendClickWord"
 		></canvas>
+		<view v-if="detailed" class="hot-word-cloud-details">
+			<view class="hot-word-cloud-detail">
+				<text>热词</text>
+				<text>热度</text>
+			</view>
+			<view v-for="item in sortedSeries" :key="item.name" class="hot-word-cloud-detail">
+				<text>{{ item.name }}</text>
+				<text>{{ item.score }}</text>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -72,6 +82,9 @@
 			},
 			endDate () {
 				return new DateFormat(this.end * 1000).toString('yyyy-mm-dd')
+			},
+			sortedSeries () {
+				return this.series.sort((a, b) => (b.score - a.score))
 			}
 		},
 		mounted () {
@@ -85,6 +98,7 @@
 					this.series = Object.keys(res.data).map(item => {
 						return {
 							name: item,
+							score: res.data[item],
 							textSize: this.detailed ? (25 + 11 * res.data[item]) : (16 + 9 * res.data[item])
 						}
 					})
@@ -161,6 +175,20 @@
 			filter: drop-shadow(0upx 0upx 32upx fade(black, 8));
 			&.hot-word-cloud-charts-detailed {
 				height: 800upx;
+			}
+		}
+		.hot-word-cloud-details {
+			padding: 32upx 64upx;
+			display: grid;
+			grid-template-columns: 100%;
+			gap: 16upx;
+			background-color: fade(white, 32);
+			border-radius: 32upx;
+			.hot-word-cloud-detail {
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+				align-items: center;
 			}
 		}
 	}
