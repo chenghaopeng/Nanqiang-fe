@@ -72,6 +72,7 @@
 				width: 64upx;
 				color: var(--primary-color);
 				filter: drop-shadow(0upx 2upx 4upx fade(black, 32));
+				z-index: 100;
 			}
 		}
 	}

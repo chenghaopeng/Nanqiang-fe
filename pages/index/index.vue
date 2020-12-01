@@ -53,7 +53,7 @@
 		display: flex;
 		flex-flow: column nowrap;
 		.index-content {
-			margin-bottom: var(--tabbar-height);
+			margin-bottom: calc(var(--tabbar-height) + 32upx);
 		}
 	}
 </style>

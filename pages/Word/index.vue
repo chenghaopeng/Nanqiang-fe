@@ -102,7 +102,7 @@
 	.word-whole {
 		display: grid;
 		grid-template-columns: 100%;
-		gap: 16upx;
+		gap: 8upx;
 		.word-title {
 			font-size: larger;
 		}

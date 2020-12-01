@@ -137,6 +137,7 @@
 				border-radius: 16upx;
 				background-color: fade(white, 64);
 				box-shadow: 0upx 0upx 16upx 0upx fade(black, 16);
+				animation: fadein 0.5s ease-in-out;
 				overflow: hidden;
 				* {
 					width: 100%;
