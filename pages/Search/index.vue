@@ -14,7 +14,7 @@
 				class="search-result"
 				@click="handleClick(result.id)"
 			>
-				<view v-if="result.type === 0">{{ result.content }}</view>
+				<view v-if="result.type === 0" :style="{ backgroundImage: ((result.content || !result.piclist) ? '' : `url(${result.piclist[0]})`) }">{{ result.content }}</view>
 				<image v-if="result.type === 1" :src="imageProxy(result.src)" mode="aspectFill" lazy-load>
 			</view>
 		</view>
@@ -36,7 +36,7 @@
 			return {
 				io: null,
 				type: 0,
-				loading: false,
+				loading: 0,
 				words: '',
 				results: [],
 				beginTime: 0,
@@ -60,27 +60,35 @@
 			reset () {
 				this.results = []
 				this.endTime = Math.round(new Date().getTime() / 1000)
-				this.beginTime = this.endTime - 3600 * 24 * 7
+				this.beginTime = 0
 				this.count = 20
 				this.current = 0
-				this.loading = false
+				this.loading = 0
 			},
 			update () {
 				if (this.loading) return
 				const words = this.words.toLowerCase().split(' ').map(v => v.trim()).filter(v => !!v).join(',')
 				if (!words) return
-				this.loading = true
-				request(`/search/${this.beginTime}/${this.endTime}/${this.count}/${words}`).then(res => {
-					const times = Object.keys(res.data).sort((a, b) => (b - a))
-					this.results = this.results.concat(times.map((time, index) => { return { type: 0, key: `${time}${index}`,  ...res.data[time] } }))
-					this.endTime = this.beginTime - 1
-					this.beginTime = this.endTime - 3600 * 24 * 7
+				if (this.endTime > 0) {
+					this.loading++
+					request(`/search/${this.beginTime}/${this.endTime}/${this.count}/${words}`).then(res => {
+						const times = Object.keys(res.data).sort((a, b) => (b - a))
+						this.results = this.results.concat(times.map((time, index) => { return { type: 0, key: `${time}${index}`,  ...res.data[time] } }))
+						if (times.length) this.endTime = times[times.length - 1] - 1
+						else this.endTime = 0
+						this.beginTime = 0
+						this.loading--
+					})
+				}
+				if (this.current >= 0) {
+					this.loading++
 					request(`/gallery/types/${this.current}/${this.current + this.count}/${words}`).then(res => {
 						this.results = this.results.concat(res.data.map((item, index) => { return { type: 1, key: `${item.id}${index}${item.src}`, ...item } }))
 						this.current += this.count
-						this.loading = false
+						this.loading--
+						if (res.data.length === 0) this.current = -1
 					})
-				})
+				}
 			}
 		},
 		mounted () {
