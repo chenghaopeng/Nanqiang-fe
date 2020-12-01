@@ -16,43 +16,25 @@
 		</view>
 		<view class="page-home-block">
 			<text class="page-home-block-title">趋势</text>
-			<option-card :options="trend.options" @change="handleTrendChange($event)"></option-card>
-			<canvas
-				canvas-id="canvasWord"
-				id="canvasWord"
-				class="page-home-block-content page-home-block-charts"
-				@click="handleTrendClickWord"
-			></canvas>
+			<hot-word-cloud class="page-home-block-content"></hot-word-cloud>
 		</view>
 	</view>
 </template>
 
 <script>
-	import uCharts from '../../js_sdk/u-charts/u-charts/u-charts.js'
 	import OptionCard from '../../components/OptionCard/OptionCard.vue'
+	import HotWordCloud from '../../components/HotWordCloud.vue'
 	import request, { imageProxy } from '../../utils/request.js'
 	export default {
 		components: {
-			OptionCard
+			OptionCard,
+			HotWordCloud
 		},
 		data () {
 			return {
 				gallery: {
 					options: ['全部', '猫', '狗', '天空', '日出', '碗', '帅哥', '美女', '演出', '美食', '植物'],
 					images: []
-				},
-				trend: {
-					options: ['今日', '本周', '本月', '今年'],
-					apis: ['day', 'week', 'month', 'year'],
-					offset: [
-						3600 * 24,
-						3600 * 24 * 7,
-						3600 * 24 * 30,
-						3600 * 24 * 365
-					],
-					series: [],
-					ref: null,
-					index: 0
 				}
 			}
 		},
@@ -63,47 +45,12 @@
 					this.gallery.images = Array.from(new Set(res.data)).map(item => { return { ...item, src: imageProxy(item.src) } })
 				})
 			},
-			handleTrendChange ($index) {
-				this.trend.index = $index
-				request(`/trend/${this.trend.apis[$index]}`).then(res => {
-					this.trend.series = Object.keys(res.data).map(item => {
-						return {
-							name: item,
-							textSize: 16 + 9 * res.data[item]
-						}
-					})
-					this.trend.ref = new uCharts({
-						$this: this,
-						canvasId: 'canvasWord',
-						type: 'word',
-						background: 'white',
-						animation: true,
-						pixelRatio: 1,
-						series: this.trend.series,
-						width: uni.upx2px(686),
-						height: uni.upx2px(400),
-						extra: {
-							word: {
-								type: 'normal'
-							}
-						}
-					})
-				})
-			},
 			handleImageClick (id) {
 				this.$showContent(id)
-			},
-			handleTrendClickWord (e) {
-				const index = this.trend.ref.getCurrentDataIndex(e)
-				if (index < 0) return
-				const { name } = this.trend.series[index]
-				const time = Math.round(new Date().getTime() / 1000)
-				this.$showWord(time - this.trend.offset[this.trend.index], time, name)
 			}
 		},
 		mounted() {
 			this.handleGalleryChange(0)
-			this.handleTrendChange(0)
 		}
 	}
 </script>
@@ -117,13 +64,13 @@
 		.page-home-block {
 			display: grid;
 			grid-template-columns: 1fr;
-			gap: 16upx;
+			gap: 32upx;
 			.page-home-block-title {
 				font-size: 48upx;
+				margin-bottom: -16upx;
 			}
 		}
 		.page-home-block-content {
-			margin-top: 16upx;
 			filter: drop-shadow(0upx 0upx 32upx fade(black, 8));
 		}
 		.page-home-block-gallery {
@@ -140,10 +87,6 @@
 					margin: none;
 				}
 			}
-		}
-		.page-home-block-charts {
-			width: 686upx;
-			height: 400upx;
 		}
 	}
 </style>

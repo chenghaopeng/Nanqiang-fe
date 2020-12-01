@@ -1,12 +1,14 @@
 <template>
-	<view>
-		Trend
-	</view>
+	<hot-word-cloud></hot-word-cloud>
 </template>
 
 <script>
+	import HotWordCloud from '../../components/HotWordCloud.vue'
 	export default {
-		data() {
+		components: {
+			HotWordCloud
+		},
+		data () {
 			return {
 				
 			}
