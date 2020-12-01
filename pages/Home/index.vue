@@ -3,7 +3,7 @@
 		<view class="page-home-block">
 			<text class="page-home-block-title">画廊</text>
 			<option-card :options="gallery.options" @change="handleGalleryChange($event)"></option-card>
-			<view class="page-home-block-content page-home-block-gallery">
+			<view class="page-home-block-gallery">
 				<image
 					class="page-home-block-gallery-image"
 					v-for="image in gallery.images"
@@ -16,7 +16,7 @@
 		</view>
 		<view class="page-home-block">
 			<text class="page-home-block-title">趋势</text>
-			<hot-word-cloud class="page-home-block-content"></hot-word-cloud>
+			<hot-word-cloud></hot-word-cloud>
 		</view>
 	</view>
 </template>
@@ -70,13 +70,11 @@
 				margin-bottom: -16upx;
 			}
 		}
-		.page-home-block-content {
-			filter: drop-shadow(0upx 0upx 32upx fade(black, 8));
-		}
 		.page-home-block-gallery {
 			display: flex;
 			flex-flow: row nowrap;
 			overflow-y: scroll;
+			filter: drop-shadow(0upx 0upx 32upx fade(black, 8));
 			.page-home-block-gallery-image {
 				flex: none;
 				margin-right: 32upx;

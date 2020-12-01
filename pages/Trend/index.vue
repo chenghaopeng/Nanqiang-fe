@@ -1,5 +1,5 @@
 <template>
-	<hot-word-cloud></hot-word-cloud>
+	<hot-word-cloud :detailed="true"></hot-word-cloud>
 </template>
 
 <script>
