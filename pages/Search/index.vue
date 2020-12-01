@@ -14,7 +14,7 @@
 				class="search-result"
 				@click="handleClick(result.id)"
 			>
-				<view v-if="result.type === 0" :style="{ backgroundImage: ((result.content || !result.piclist) ? '' : `url(${result.piclist[0]})`) }">{{ result.content }}</view>
+				<view v-if="result.type === 0" :style="{ backgroundSize: 'cover', backgroundImage: ((result.content || !result.piclist) ? '' : `url(${imageProxy(result.piclist[0])})`) }">{{ result.content }}</view>
 				<image v-if="result.type === 1" :src="imageProxy(result.src)" mode="aspectFill" lazy-load>
 			</view>
 		</view>
