@@ -16,7 +16,7 @@
 				<text>热词</text>
 				<text>热度</text>
 			</view>
-			<view v-for="item in sortedSeries" :key="item.name" class="hot-word-cloud-detail">
+			<view v-for="item in sortedSeries" :key="item.name" class="hot-word-cloud-detail" @click="show(item.name)">
 				<text>{{ item.name }}</text>
 				<text>{{ item.score }}</text>
 			</view>
@@ -120,11 +120,13 @@
 					})
 				})
 			},
+			show (word) {
+				this.$showWord(this.begin, this.end, word)
+			},
 			handleTrendClickWord (e) {
 				const index = this.ref.getCurrentDataIndex(e)
 				if (index < 0) return
-				const { name } = this.series[index]
-				this.$showWord(this.begin, this.end, name)
+				this.show(this.series[index].name)
 			},
 			handleTrendChange ($index) {
 				this.index = $index
@@ -184,11 +186,16 @@
 			gap: 16upx;
 			background-color: fade(white, 32);
 			border-radius: 32upx;
+			.hot-word-cloud-detail:first-child {
+				font-size: large;
+				color: black;
+			}
 			.hot-word-cloud-detail {
 				display: flex;
 				flex-flow: row nowrap;
 				justify-content: space-between;
 				align-items: center;
+				color: grey;
 			}
 		}
 	}
