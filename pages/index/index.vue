@@ -95,6 +95,7 @@
 			border-radius: 32upx;
 			z-index: 200;
 			animation: fadein 0.5s ease-in-out;
+			box-shadow: 0upx 0upx 64upx 0upx fade(black, 16);
 			&.index-title-hiding {
 				animation: fadeout 0.5s ease-in-out;
 			}
