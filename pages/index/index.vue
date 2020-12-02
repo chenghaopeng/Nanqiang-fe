@@ -16,6 +16,7 @@
 	import Content from '../Content'
 	import Word from '../Word'
 	import Search from '../Search'
+	import Qa from '../Qa'
 	import TabBar from '../../components/TabBar.vue'
 	export default {
 		components: {
@@ -24,6 +25,7 @@
 			PageTrend: Trend,
 			PageLove: Love,
 			PageGallery: Gallery,
+			PageQa: Qa,
 			PageContent: Content,
 			PageWord: Word,
 			PageSearch: Search
@@ -48,8 +50,8 @@
 		},
 		computed: {
 			routerName () {
-				const routers = ['page-home', 'page-trend', 'page-love', 'page-gallery', 'page-search']
-				const names = ['首页', '趋势', '表白', '画廊', '寻觅']
+				const routers = ['page-home', 'page-trend', 'page-love', 'page-gallery', 'page-search', 'page-qa']
+				const names = ['首页', '趋势', '表白', '画廊', '寻觅', '欲知']
 				return names[routers.indexOf(this.router)]
 			}
 		},

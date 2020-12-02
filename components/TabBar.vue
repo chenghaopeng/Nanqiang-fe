@@ -37,9 +37,9 @@
 						size: 70
 					},
 					{
-						icon: 'heart',
-						router: 'page-love',
-						size: 64
+						icon: 'question-circle',
+						router: 'page-qa',
+						size: 68
 					},
 					{
 						icon: 'image',
