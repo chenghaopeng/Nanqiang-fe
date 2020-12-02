@@ -65,7 +65,7 @@
 				return ['今日', '本周', '本月', '今年']
 			},
 			begins () {
-				const time = Math.round(new Date(new DateFormat(new Date().getTime()).toString('yyyy-mm-dd')).getTime() / 1000)
+				const time = parseInt(new Date().getTime() / 1000 / (3600 * 24)) * (3600 * 24)
 				const { offset } = this
 				let ret
 				if (this.detailed) ret = [-offset[0], - 2 * offset[0], -offset[1], - 2 * offset[1], -offset[2], - 2 * offset[2], -offset[3], - 2 * offset[3]]
@@ -73,7 +73,7 @@
 				return ret.map(t => t + time)
 			},
 			ends () {
-				const time = Math.round(new Date(new DateFormat(new Date().getTime()).toString('yyyy-mm-dd')).getTime() / 1000)
+				const time = parseInt(new Date().getTime() / 1000 / (3600 * 24)) * (3600 * 24)
 				const { offset } = this
 				let ret
 				if (this.detailed) ret = [0, -offset[0], 0, -offset[1], 0, -offset[2], 0, -offset[3]]
